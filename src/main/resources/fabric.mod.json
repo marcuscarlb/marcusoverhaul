@@ -1,0 +1,37 @@
+{
+	"schemaVersion": 1,
+	"id": "marcusminecraftoverhaul",
+	"version": "0",
+	"name": "MarcusMinecraftOverhaul",
+	"description": "just a little coding project, wanting to make something im happy with to please my inner child that always wanted to make a game",
+	"authors": [
+		"inner child Marcus"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/marcusminecraftoverhaul/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"net.marcus.overhaul.MarcusMinecraftOverhaul"
+		],
+		"fabric-datagen": [
+			"net.marcus.overhaul.MarcusMinecraftOverhaulDataGenerator"
+		]
+	},
+	"mixins": [
+		"marcusminecraftoverhaul.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.16.10",
+		"minecraft": "~1.20.6",
+		"java": ">=21",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
