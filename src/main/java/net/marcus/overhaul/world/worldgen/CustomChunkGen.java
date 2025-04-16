@@ -45,8 +45,9 @@ public class CustomChunkGen extends ChunkGenerator {
             ).apply(instance, CustomChunkGen::new)
     );
 
-    public int minY;
-    public int maxY;
+    private final int minY;
+    private final int maxY;
+
 
     public CustomChunkGen(BiomeSource biomeSource, int minY, int maxY) {
         super(biomeSource);
@@ -82,6 +83,24 @@ public class CustomChunkGen extends ChunkGenerator {
 
     @Override
     public CompletableFuture<Chunk> populateNoise(Executor executor, Blender blender, NoiseConfig noiseConfig, StructureAccessor structureAccessor, Chunk chunk) {
+        int levelHeight = 0;
+        BlockState blockState = Blocks.DIRT.getDefaultState();
+        BlockPos.Mutable mutable = new BlockPos.Mutable();
+        Heightmap heightmap = chunk.getHeightmap(Heightmap.Type.OCEAN_FLOOR_WG);
+        Heightmap heightmap2 = chunk.getHeightmap(Heightmap.Type.OCEAN_FLOOR);
+        for(int i = 3; i > levelHeight; --i) {
+            if (blockState != null) {
+                int j = levelHeight + i;
+
+                for(int k = 0; k < 16; ++k) {
+                    for(int l = 0; l < 16; ++l) {
+                        chunk.setBlockState(mutable.set(k, j, l), blockState, false);
+                        heightmap.trackUpdate(k, j, l, blockState);
+                        heightmap2.trackUpdate(k, j, l, blockState);
+                    }
+                }
+            }
+        }
         return CompletableFuture.completedFuture(chunk);
     }
 
